@@ -130,7 +130,7 @@
     
     function update() {
       const now = new Date();
-      const diff = Math.floor((targetDt - now) / 1000 + 1);
+      const diff = (targetDt - now) / 1000 + 1;
 
       const diff_hour = diff / 3600;
       const diff_min  = 60 * (diff_hour - Math.floor(diff_hour));
@@ -151,14 +151,14 @@
       $clock.textContent = `${Y}/${m}/${d} ${H}:${M}:${S}`;
 
       // 残り時間
-      if (diff > 0) {
+      if (Math.floor(diff) > 0) {
         $time.textContent = `${hour.padStart(2, "0")}:${min.padStart(2, "0")}:${sec.padStart(2, "0")}`;
 
         const progress = (totalSeconds - diff) / totalSeconds * 100;
         $progressBar.style.width = `${progress}%`;
         $progressText.innerText = Math.floor(progress * 100000) / 100000 + "%";
       }
-      if (diff === 0) {
+      if (Math.floor(diff) === 0) {
         init_flakeAnimation();
         $time.textContent = `00:00:00`;
         $progressBar.style.width = `100%`;
